@@ -27,9 +27,6 @@ import com.mcbans.firestar.mcbans.org.json.JSONException;
 import com.mcbans.firestar.mcbans.org.json.JSONObject;
 import com.mcbans.firestar.mcbans.util.Util;
 
-import fr.neatmonster.nocheatplus.checks.ViolationHistory;
-import fr.neatmonster.nocheatplus.checks.ViolationHistory.ViolationLevel;
-
 public class Ban implements Runnable {
     private final MCBans plugin;
     private final ActionLog log;
@@ -415,20 +412,6 @@ public class Ban implements Runnable {
         if (foundMatch) {
             Player p = plugin.getServer().getPlayerExact(playerName);
             if (p != null) playerName = p.getName();
-            // NoCheatPlus
-            if (plugin.isEnabledNCP()) {
-                ViolationHistory history = ViolationHistory.getHistory(playerName, false);
-                if (history != null){
-                    // found player history
-                    final ViolationLevel[] violations = history.getViolationLevels();
-                    JSONObject tmp = new JSONObject();
-                    for (ViolationLevel vl : violations){
-                        tmp.put(vl.check, String.valueOf(Math.round(vl.sumVL)));
-                    }
-                    ret.put("nocheatplus", tmp);
-                    //ActionData.put("nocheatplus", tmp); // don't put directly
-                }
-            }
             // AntiCheat
             if (plugin.isEnabledAC() && p.getPlayer() != null) {
                 JSONObject tmp = new JSONObject();

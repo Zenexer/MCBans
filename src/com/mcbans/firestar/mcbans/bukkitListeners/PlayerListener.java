@@ -20,9 +20,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerPreLoginEvent.Result;
 
 import com.mcbans.firestar.mcbans.ActionLog;
 import com.mcbans.firestar.mcbans.ConfigurationManager;
@@ -217,7 +217,7 @@ public class PlayerListener implements Listener {
             // notify to console, mcbans.view.staff, mcbans.admin, mcbans.ban.global players
             Util.message(Bukkit.getConsoleSender(), ChatColor.AQUA + player.getName() + " is a MCBans Staff member");
             
-            plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable(){
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
                 @Override
                 public void run() {
                     Set<Player> players = Perms.VIEW_STAFF.getPlayers();

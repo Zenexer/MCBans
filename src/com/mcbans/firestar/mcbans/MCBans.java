@@ -8,6 +8,7 @@ import net.h31ix.anticheat.Anticheat;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -34,9 +35,7 @@ import com.mcbans.firestar.mcbans.commands.MCBansCommandHandler;
 import com.mcbans.firestar.mcbans.permission.Perms;
 import com.mcbans.firestar.mcbans.rollback.RollbackHandler;
 
-import fr.neatmonster.nocheatplus.NoCheatPlus;
-
-public class MCBans extends JavaPlugin {
+public class MCBans extends JavaPlugin implements TabExecutor {
     public final String apiRequestSuffix = "4.1";
     private static MCBans instance;
 
@@ -189,15 +188,11 @@ public class MCBans extends JavaPlugin {
     }
 
     public void checkPlugin(final boolean startup){
-        // Check NoCheatPlus
-        Plugin checkNCP = getServer().getPluginManager().getPlugin("NoCheatPlus");
-        this.ncpEnabled = (checkNCP != null && checkNCP instanceof NoCheatPlus);
         // Check AntiCheat
         Plugin checkAC = getServer().getPluginManager().getPlugin("AntiCheat");
         this.acEnabled = (checkAC != null && checkAC instanceof Anticheat);
 
         if (!startup){
-            if (ncpEnabled) ncpEnabled = (checkNCP.isEnabled());
             if (acEnabled) acEnabled = (checkAC.isEnabled());
         }
     }
